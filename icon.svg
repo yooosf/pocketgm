@@ -1,0 +1,13 @@
+{
+  "appId": "com.yourname.dynastyhc",
+  "appName": "Dynasty HC",
+  "webDir": "www",
+  "server": {
+    "iosScheme": "app"
+  },
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0a0e14"
+  },
+  "backgroundColor": "#0a0e14"
+}
