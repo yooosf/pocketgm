@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POWERHOUSE · THE J2YDEN SPLIT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Oswald:wght@300;400;500;600;700&family=Cinzel:wght@600;700;800;900&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#040405;
+    --ink:#ededed;
+    --mut:#7c7c84;
+    --line:rgba(255,255,255,.1);
+    --flame1:#7a3cff;   /* violet */
+    --flame2:#d63cff;   /* magenta */
+    --flame3:#ff5a8a;   /* pink */
+    --flame4:#3ce0ff;   /* cyan */
+    --card:rgba(14,12,18,.72);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'Oswald',sans-serif;font-weight:300;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;
+  }
+  /* film grain */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* faint vertical fabric streaks + vignette */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 50% 0%,transparent 55%,rgba(0,0,0,.85) 100%),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 2px,transparent 2px 5px);
+  }
+
+  /* ====== FLAMES ====== */
+  .flames{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .flames svg{position:absolute;bottom:-4%;width:130%;left:-15%;height:90%;opacity:.85;
+    filter:drop-shadow(0 0 6px rgba(214,60,255,.35));}
+  .flames .layer2{opacity:.5;left:5%;width:120%;height:75%;filter:drop-shadow(0 0 8px rgba(60,224,255,.3));}
+  .flame-path{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ====== SHELL ====== */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(18px,5vw,70px);position:relative;z-index:2}
+
+  /* ====== HERO / CREST ====== */
+  .hero{position:relative;z-index:2;padding:54px 0 70px;text-align:center;overflow:hidden}
+  .topmark{font-family:'UnifrakturCook';font-size:26px;letter-spacing:.04em;color:var(--ink);line-height:1;opacity:.92;
+    text-shadow:0 0 18px rgba(214,60,255,.4)}
+  .topmark small{display:block;font-size:15px;margin-top:2px}
+
+  /* arched POWERHOUSE */
+  .arch{position:relative;width:min(680px,92vw);margin:30px auto 0;height:150px}
+  .arch svg{width:100%;height:100%;overflow:visible}
+  .arch text{
+    font-family:'Cinzel';font-weight:900;letter-spacing:2px;
+    fill:transparent;stroke:#fff;stroke-width:1.1px;paint-order:stroke;
+  }
+  /* crest */
+  .crest{margin:-6px auto 0;width:230px;position:relative}
+  .crest .ring{
+    width:150px;height:150px;border-radius:50%;margin:0 auto;position:relative;
+    border:2px solid rgba(255,255,255,.85);
+    box-shadow:0 0 30px rgba(214,60,255,.35),inset 0 0 24px rgba(122,60,255,.25);
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle,rgba(122,60,255,.12),transparent 70%);
+  }
+  .crest .silhouette{font-family:'Cinzel';font-weight:900;font-size:60px;color:#fff;
+    text-shadow:0 0 20px rgba(255,90,138,.6);line-height:1}
+  /* barbell across crest */
+  .barbell{position:absolute;top:72px;left:50%;transform:translateX(-50%);width:230px;height:30px;display:flex;align-items:center;justify-content:center;gap:0}
+  .bar{height:5px;width:150px;background:linear-gradient(90deg,#fff,#cfcfe6);border-radius:3px;box-shadow:0 0 12px rgba(255,255,255,.5)}
+  .plate{width:16px;height:46px;background:linear-gradient(180deg,#fff,#b9b9cc);border-radius:4px;box-shadow:0 0 14px rgba(214,60,255,.5)}
+  .plate.sm{height:32px;width:12px;margin:0 2px}
+
+  .gym{font-family:'Cinzel';font-weight:900;font-size:clamp(54px,12vw,104px);letter-spacing:.06em;line-height:.9;margin-top:18px;
+    color:#fff;text-shadow:0 0 26px rgba(214,60,255,.45),0 0 60px rgba(60,224,255,.18)}
+  .gym sup{font-size:.22em;vertical-align:super;font-weight:700}
+  .script{font-family:'Pinyon Script';font-size:clamp(34px,7vw,60px);color:#fff;line-height:.8;margin-top:-6px;
+    text-shadow:0 0 22px rgba(255,90,138,.5)}
+
+  .ribbon{font-family:'Oswald';font-weight:500;letter-spacing:.42em;font-size:clamp(10px,2.4vw,15px);
+    text-transform:uppercase;margin-top:26px;color:#dcdce4;display:flex;gap:.42em;justify-content:center;flex-wrap:wrap}
+  .ribbon b{color:var(--flame3);font-weight:600}
+
+  .creed{max-width:560px;margin:22px auto 0;font-size:11px;line-height:2;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--mut);font-weight:300}
+
+  .scroll{margin-top:40px;font-family:'Oswald';letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:var(--mut)}
+  .scroll span{display:inline-block;animation:bob 1.6s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* divider */
+  .divider{display:flex;align-items:center;gap:18px;margin:0 auto;max-width:1180px;padding:0 clamp(18px,5vw,70px)}
+  .divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(214,60,255,.5),transparent)}
+  .divider .dia{width:8px;height:8px;background:var(--flame2);transform:rotate(45deg);box-shadow:0 0 12px var(--flame2)}
+
+  /* ====== SECTION ====== */
+  .sec{padding:80px 0;position:relative;z-index:2}
+  .sec-tag{font-family:'UnifrakturCook';font-size:18px;color:var(--flame3);text-align:center;margin-bottom:8px;text-shadow:0 0 14px rgba(255,90,138,.4)}
+  .sec-title{font-family:'Cinzel';font-weight:900;text-align:center;font-size:clamp(30px,6.5vw,64px);
+    letter-spacing:.04em;text-transform:uppercase;line-height:.95;
+    color:#fff;text-shadow:0 0 24px rgba(122,60,255,.35)}
+  .sec-sub{text-align:center;color:var(--mut);max-width:600px;margin:16px auto 50px;font-size:14.5px;line-height:1.8;letter-spacing:.02em}
+
+  /* legend */
+  .legend{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;margin-bottom:42px;font-family:'Oswald';font-weight:400}
+  .legend-item{display:flex;align-items:center;gap:9px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+  .legend-item .sw{width:22px;height:3px;border-radius:2px}
+
+  /* ====== DAYS ====== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+  .day{
+    background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;
+    backdrop-filter:blur(6px);position:relative;
+    transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s,box-shadow .4s;
+  }
+  .day::after{ /* top edge flame glow */
+    content:"";position:absolute;left:0;right:0;top:0;height:2px;opacity:.9;
+  }
+  .day.strength::after{background:linear-gradient(90deg,transparent,var(--flame3),var(--flame2),transparent)}
+  .day.volume::after{background:linear-gradient(90deg,transparent,var(--flame4),var(--flame1),transparent)}
+  .day.rest::after{background:linear-gradient(90deg,transparent,var(--mut),transparent)}
+  .day:hover{transform:translateY(-5px);border-color:rgba(214,60,255,.4);
+    box-shadow:0 26px 50px -22px rgba(122,60,255,.5)}
+
+  .day-top{padding:22px 22px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .day-meta{display:flex;flex-direction:column;gap:7px}
+  .day-tag{font-family:'Oswald';font-weight:500;font-size:10px;letter-spacing:.26em;text-transform:uppercase}
+  .day.strength .day-tag{color:var(--flame3)}
+  .day.volume .day-tag{color:var(--flame4)}
+  .day.rest .day-tag{color:var(--mut)}
+  .day-name{font-family:'Cinzel';font-weight:800;font-size:30px;text-transform:uppercase;line-height:.9;letter-spacing:.03em;color:#fff}
+  .day-num{font-family:'Cinzel';font-weight:900;font-size:50px;color:rgba(255,255,255,.07);line-height:1;transition:color .35s,text-shadow .35s}
+  .day:hover .day-num{color:rgba(214,60,255,.5);text-shadow:0 0 22px rgba(214,60,255,.5)}
+  .chev{transition:transform .4s;color:var(--mut)}
+  .day.open .chev{transform:rotate(180deg)}
+
+  .ex-list{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1)}
+  .ex-inner{padding:2px 22px 22px}
+  .ex{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid rgba(255,255,255,.07)}
+  .ex:first-child{border-top:none}
+  .ex-name{font-family:'Oswald';font-weight:400;font-size:14px;display:flex;align-items:center;gap:11px;letter-spacing:.02em}
+  .ex-name .idx{font-family:'Oswald';font-weight:600;font-size:11px;color:var(--flame2);min-width:18px;opacity:.8}
+  .ex-sets{font-family:'Oswald';font-weight:600;font-size:12.5px;letter-spacing:.04em;white-space:nowrap;color:#e9e9ef;
+    background:rgba(255,255,255,.05);padding:5px 11px;border-radius:4px;border:1px solid var(--line)}
+  .rest-body{padding:6px 22px 26px;color:var(--mut);font-size:14px;line-height:1.9;letter-spacing:.03em}
+  .rest-body .big{font-family:'UnifrakturCook';font-size:36px;color:rgba(255,255,255,.14);margin-bottom:10px}
+
+  .controls{display:flex;gap:12px;justify-content:center;margin-top:42px;flex-wrap:wrap}
+  .btn{font-family:'Oswald';font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    background:transparent;color:var(--ink);border:1px solid var(--line);padding:13px 26px;border-radius:40px;cursor:pointer;
+    transition:all .3s}
+  .btn:hover{border-color:var(--flame2);color:#fff;box-shadow:0 0 22px rgba(214,60,255,.4)}
+
+  /* ====== NOTES ====== */
+  .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:30px 26px;position:relative;overflow:hidden;backdrop-filter:blur(6px)}
+  .note .rn{font-family:'Cinzel';font-weight:900;font-size:54px;color:rgba(214,60,255,.16);position:absolute;top:6px;right:18px;line-height:1}
+  .note h3{font-family:'Cinzel';font-weight:800;font-size:19px;text-transform:uppercase;margin-bottom:12px;letter-spacing:.03em;color:#fff}
+  .note p{color:var(--mut);font-size:14px;line-height:1.85;letter-spacing:.02em}
+  .note p b{color:var(--flame3);font-weight:600}
+
+  /* ====== FOOTER ====== */
+  footer{padding:64px clamp(18px,5vw,70px) 60px;text-align:center;position:relative;z-index:2}
+  footer .mark{font-family:'UnifrakturCook';font-size:clamp(34px,8vw,68px);color:rgba(255,255,255,.92);line-height:1;
+    text-shadow:0 0 30px rgba(214,60,255,.4)}
+  footer .ws{font-family:'Oswald';font-weight:500;letter-spacing:.4em;font-size:12px;text-transform:uppercase;color:var(--mut);margin-top:22px}
+  footer .ws b{color:var(--flame3)}
+  footer a{color:var(--flame4);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s}
+  footer a:hover{border-color:var(--flame4)}
+  footer .fine{margin-top:18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#4a4a52;line-height:2}
+
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .arch{height:110px}
+    .gym{margin-top:8px}
+  }
+</style>
+</head>
+<body>
+
+<!-- FLAMES BACKDROP -->
+<div class="flames">
+  <svg class="layer1" viewBox="0 0 1200 600" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="f1" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#7a3cff"/><stop offset="45%" stop-color="#d63cff"/><stop offset="100%" stop-color="#ff5a8a"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#f1)" class="flame-path">
+      <path d="M60 600 C40 470 120 430 90 320 C70 250 130 210 110 130 C100 90 140 70 130 20"/>
+      <path d="M150 600 C150 500 110 450 160 380 C200 320 150 280 200 220 C230 180 200 140 240 100"/>
+      <path d="M250 600 C270 480 210 440 260 360 C300 300 250 250 300 190"/>
+      <path d="M1140 600 C1160 470 1080 430 1110 320 C1130 250 1070 210 1090 130 C1100 90 1060 70 1070 20"/>
+      <path d="M1050 600 C1050 500 1090 450 1040 380 C1000 320 1050 280 1000 220 C970 180 1000 140 960 100"/>
+      <path d="M950 600 C930 480 990 440 940 360 C900 300 950 250 900 190"/>
+      <path d="M600 600 C580 510 640 470 600 400 C560 340 640 300 600 230"/>
+    </g>
+  </svg>
+  <svg class="layer2" viewBox="0 0 1200 600" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="f2" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#3ce0ff"/><stop offset="60%" stop-color="#7a3cff"/><stop offset="100%" stop-color="#d63cff"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#f2)" class="flame-path" stroke-width="1">
+      <path d="M110 600 C90 490 150 450 120 360 C100 300 150 260 130 190"/>
+      <path d="M200 600 C220 500 180 460 220 390 C250 340 210 300 250 250"/>
+      <path d="M1090 600 C1110 490 1050 450 1080 360 C1100 300 1050 260 1070 190"/>
+      <path d="M1000 600 C980 500 1020 460 980 390 C950 340 990 300 950 250"/>
+      <path d="M500 600 C490 520 540 490 510 420"/>
+      <path d="M700 600 C710 520 660 490 690 420"/>
+    </g>
+  </svg>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="topmark reveal">ssdd<small>ntgu</small></div>
+
+    <div class="arch reveal">
+      <svg viewBox="0 0 680 150">
+        <path id="archcurve" d="M30,140 A330,180 0 0,1 650,140" fill="none"/>
+        <text font-size="58" text-anchor="middle">
+          <textPath href="#archcurve" startOffset="50%">POWERHOUSE</textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="crest reveal">
+      <div class="ring"><span class="silhouette">W</span></div>
+      <div class="barbell">
+        <span class="plate"></span><span class="plate sm"></span>
+        <span class="bar"></span>
+        <span class="plate sm"></span><span class="plate"></span>
+      </div>
+    </div>
+
+    <div class="gym reveal">GYM<sup>®</sup></div>
+    <div class="script reveal">Wolves Forever</div>
+
+    <div class="ribbon reveal">POWERHOUSE <b>·</b> OF <b>·</b> THE <b>·</b> WOLVES <b>·</b> WORLDWIDE</div>
+
+    <div class="creed reveal">
+      The J2YDEN Split · Six Days · Push Pull Legs Twice Over<br>
+      Heavy iron first · The pump second · Forged for the athlete
+    </div>
+
+    <div class="scroll reveal"><span>↓</span><br>Enter the Program</div>
+  </div>
+</header>
+
+<div class="divider reveal"><span class="ln"></span><span class="dia"></span><span class="ln"></span></div>
+
+<!-- PROGRAM -->
+<section class="sec" id="program">
+  <div class="wrap">
+    <div class="sec-tag reveal">the week</div>
+    <h2 class="sec-title reveal">Six Days of Iron</h2>
+    <p class="sec-sub reveal">Tap any day to summon the full list. The first Push / Pull / Legs runs heavy and low-rep — leave a rep or two in the tank. The second runs for volume and the pump, taken near failure.</p>
+
+    <div class="legend reveal">
+      <div class="legend-item"><span class="sw" style="background:linear-gradient(90deg,var(--flame3),var(--flame2))"></span> Strength · heavy / low rep</div>
+      <div class="legend-item"><span class="sw" style="background:linear-gradient(90deg,var(--flame4),var(--flame1))"></span> Volume · pump / size</div>
+      <div class="legend-item"><span class="sw" style="background:var(--mut)"></span> Recovery</div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="controls reveal">
+      <button class="btn" id="expandAll">Reveal All</button>
+      <button class="btn" id="collapseAll">Conceal All</button>
+    </div>
+  </div>
+</section>
+
+<div class="divider reveal"><span class="ln"></span><span class="dia"></span><span class="ln"></span></div>
+
+<!-- NOTES -->
+<section class="sec" id="notes">
+  <div class="wrap">
+    <div class="sec-tag reveal">the code</div>
+    <h2 class="sec-title reveal">Law of the Pack</h2>
+    <p class="sec-sub reveal">Run it like an athlete, not just a lifter.</p>
+    <div class="notes">
+      <div class="note reveal"><div class="rn">I</div><h3>Overload the Iron</h3><p>Days 1–3 are sacred — <b>add weight or reps</b> week to week on bench, deadlift, squat, and press. Keep top sets crisp, bar speed fast, and stop shy of failure.</p></div>
+      <div class="note reveal"><div class="rn">II</div><h3>Chase the Pump</h3><p>Days 4–6 flip the intent: lighter loads, <b>higher reps, shorter rest</b>, sets driven close to failure. Build the size on top of the strength.</p></div>
+      <div class="note reveal"><div class="rn">III</div><h3>Train the Athlete</h3><p>Fold in <b>sprint and conditioning</b> on off-days or after lifts. One or two short explosive blocks a week if you play a sport. Power, not just steady-state.</p></div>
+      <div class="note reveal"><div class="rn">IV</div><h3>Recover Like a Wolf</h3><p>Six hard days demand <b>food and sleep</b>. Protein high, calories on point, eight hours down. The rest day is law — that's when the work pays.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="mark reveal">Wolves Forever</div>
+  <div class="ws reveal">DARK SPORT <b>·</b> BLOOD THIRSTY <b>·</b> POWERHOUSE OF THE WOLVES WORLDWIDE</div>
+  <div class="fine">
+    Programmed in the style of <a href="https://www.youtube.com/@J2YDEN_" target="_blank" rel="noopener">Jayden Fuller · @J2YDEN_</a><br>
+    Built for serious training · not medical advice · listen to your body
+  </div>
+</footer>
+
+<script>
+const DAYS = [
+  { n:"I", tag:"Push · Strength", name:"Push", type:"strength", ex:[
+    ["Barbell Bench Press","4 × 4–6"],["Incline Dumbbell Press","4 × 8–10"],["Standing Overhead Press","3 × 6–8"],
+    ["Weighted Dips","3 × 8–10"],["Lateral Raises","3 × 15"],["Overhead Triceps Ext.","3 × 10–12"],
+  ]},
+  { n:"II", tag:"Pull · Strength", name:"Pull", type:"strength", ex:[
+    ["Deadlift","4 × 3–5"],["Weighted Pull-Ups","4 × 6–8"],["Barbell / T-Bar Row","4 × 8–10"],
+    ["Face Pulls","3 × 15"],["Barbell Curl","3 × 8–10"],["Hammer Curl","3 × 10–12"],
+  ]},
+  { n:"III", tag:"Legs · Strength", name:"Legs", type:"strength", ex:[
+    ["Back Squat","4 × 4–6"],["Romanian Deadlift","3 × 8–10"],["Bulgarian Split Squat","3 × 8 / leg"],
+    ["Leg Press","3 × 12"],["Standing Calf Raise","4 × 12–15"],
+  ]},
+  { n:"IV", tag:"Push · Volume", name:"Push", type:"volume", ex:[
+    ["Incline Barbell Press","4 × 8–10"],["Flat Dumbbell Press","3 × 10–12"],["Machine Shoulder Press","3 × 10–12"],
+    ["Cable Flyes","3 × 12–15"],["Cable Lateral Raises","4 × 15–20"],["Triceps Pushdowns","4 × 12–15"],
+  ]},
+  { n:"V", tag:"Pull · Volume", name:"Pull", type:"volume", ex:[
+    ["Lat Pulldown","4 × 10–12"],["Chest-Supported Row","4 × 10–12"],["Single-Arm DB Row","3 × 10 / arm"],
+    ["Rear Delt Flyes","3 × 15–20"],["Incline Dumbbell Curl","3 × 10–12"],["Cable Curl","3 × 12–15"],
+  ]},
+  { n:"VI", tag:"Legs · Volume", name:"Legs", type:"volume", ex:[
+    ["Front / Hack Squat","4 × 8–10"],["Hip Thrust","3 × 10–12"],["Walking Lunges","3 × 12 / leg"],
+    ["Leg Extension","3 × 15"],["Lying Leg Curl","3 × 12–15"],["Seated Calf Raise","4 × 15–20"],
+  ]},
+  { n:"VII", tag:"Recovery", name:"Rest", type:"rest", rest:true },
+];
+
+const grid = document.getElementById('grid');
+DAYS.forEach((d,i)=>{
+  const card=document.createElement('div');
+  card.className=`day ${d.type} reveal`;
+  card.style.transitionDelay=(i*0.05)+'s';
+  let body;
+  if(d.rest){
+    body=`<div class="ex-list"><div class="rest-body"><div class="big">Recover</div>
+      Full rest or light active recovery — a walk, mobility, or easy cardio. Eat, sleep, and let six days of iron build the body.</div></div>`;
+  } else {
+    const rows=d.ex.map((e,idx)=>`<div class="ex"><div class="ex-name"><span class="idx">${String(idx+1).padStart(2,'0')}</span>${e[0]}</div><div class="ex-sets">${e[1]}</div></div>`).join('');
+    body=`<div class="ex-list"><div class="ex-inner">${rows}</div></div>`;
+  }
+  card.innerHTML=`
+    <div class="day-top">
+      <div class="day-meta"><span class="day-tag">${d.tag}</span><span class="day-name">${d.name}</span></div>
+      <div style="display:flex;align-items:center;gap:15px">
+        <span class="day-num">${d.n}</span>
+        ${d.rest?'':'<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>'}
+      </div>
+    </div>${body}`;
+  const top=card.querySelector('.day-top'), list=card.querySelector('.ex-list');
+  top.addEventListener('click',()=>{const open=card.classList.toggle('open');list.style.maxHeight=open?list.scrollHeight+'px':'0';});
+  grid.appendChild(card);
+});
+
+function setAll(open){document.querySelectorAll('.day').forEach(c=>{const l=c.querySelector('.ex-list');if(open){c.classList.add('open');l.style.maxHeight=l.scrollHeight+'px';}else{c.classList.remove('open');l.style.maxHeight='0';}});}
+document.getElementById('expandAll').addEventListener('click',()=>setAll(true));
+document.getElementById('collapseAll').addEventListener('click',()=>setAll(false));
+
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
