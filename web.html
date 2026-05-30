@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE J2YDEN SPLIT — 6 Day Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --bg2:#111114;
+    --card:#16161a;
+    --line:#26262d;
+    --txt:#f2f2f0;
+    --mut:#86868f;
+    --acc:#d9ff00;
+    --acc2:#ff3d2e;
+    --strength:#ff3d2e;
+    --volume:#d9ff00;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:'Archivo',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:center;
+    padding:40px clamp(20px,6vw,90px) 60px;overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-bg-text{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'Anton';font-size:clamp(140px,32vw,520px);color:#fff;opacity:.018;
+    white-space:nowrap;letter-spacing:-.02em;user-select:none;z-index:0;
+  }
+  .glow{
+    position:absolute;border-radius:50%;filter:blur(120px);z-index:0;opacity:.5;
+  }
+  .glow.a{width:480px;height:480px;background:var(--acc2);top:-160px;right:-120px;opacity:.22}
+  .glow.b{width:520px;height:520px;background:var(--acc);bottom:-220px;left:-160px;opacity:.12}
+  .hero-inner{position:relative;z-index:2;max-width:1300px;margin:0 auto;width:100%}
+  .tagline{
+    display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono';
+    font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);
+    border:1px solid var(--line);padding:8px 16px;border-radius:40px;margin-bottom:30px;
+    background:rgba(217,255,0,.04);
+  }
+  .tagline .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  h1{
+    font-family:'Anton';font-weight:400;line-height:.86;letter-spacing:-.01em;
+    font-size:clamp(64px,13vw,200px);text-transform:uppercase;margin-bottom:8px;
+  }
+  h1 .stroke{
+    -webkit-text-stroke:2px var(--txt);-webkit-text-fill-color:transparent;color:transparent;
+  }
+  h1 .accent{color:var(--acc)}
+  .hero-sub{
+    display:flex;flex-wrap:wrap;gap:14px 30px;margin-top:34px;font-size:15px;color:var(--mut);
+    max-width:680px;line-height:1.6;
+  }
+  .hero-sub strong{color:var(--txt);font-weight:700}
+  .stat-row{
+    display:flex;flex-wrap:wrap;gap:14px;margin-top:46px;
+  }
+  .stat{
+    border:1px solid var(--line);border-radius:14px;padding:18px 26px;background:var(--card);
+    min-width:130px;
+  }
+  .stat .num{font-family:'Anton';font-size:42px;line-height:1;color:var(--acc)}
+  .stat .lbl{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-top:8px}
+  .scroll-hint{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;
+    font-family:'JetBrains Mono';font-size:11px;letter-spacing:.2em;color:var(--mut);
+    display:flex;flex-direction:column;align-items:center;gap:8px;text-transform:uppercase;
+  }
+  .scroll-hint span{animation:bob 1.6s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== SECTION ===== */
+  .wrap{max-width:1300px;margin:0 auto;padding:0 clamp(20px,6vw,90px)}
+  .sec{padding:90px 0;position:relative;z-index:2}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:14px;flex-wrap:wrap}
+  .sec-num{font-family:'JetBrains Mono';font-size:13px;color:var(--acc);letter-spacing:.2em}
+  .sec-title{font-family:'Anton';font-size:clamp(34px,5.5vw,68px);text-transform:uppercase;line-height:1;letter-spacing:-.01em}
+  .sec-desc{color:var(--mut);max-width:620px;font-size:15.5px;line-height:1.7;margin-bottom:48px}
+
+  /* legend */
+  .legend{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+  .legend-item{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+  .legend-item .swatch{width:14px;height:14px;border-radius:4px}
+
+  /* ===== DAY GRID ===== */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+  .day{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s;
+    position:relative;
+  }
+  .day:hover{transform:translateY(-6px);border-color:#3a3a44;box-shadow:0 24px 50px -20px rgba(0,0,0,.8)}
+  .day-top{padding:22px 24px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative}
+  .day-top::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+  .day.strength .day-top::before{background:var(--strength)}
+  .day.volume .day-top::before{background:var(--volume)}
+  .day.rest .day-top::before{background:var(--mut)}
+  .day-meta{display:flex;flex-direction:column;gap:6px}
+  .day-tag{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+  .day.strength .day-tag{color:var(--strength)}
+  .day.volume .day-tag{color:var(--volume)}
+  .day.rest .day-tag{color:var(--mut)}
+  .day-name{font-family:'Anton';font-size:30px;text-transform:uppercase;line-height:.95}
+  .day-num{font-family:'Anton';font-size:54px;color:#202028;line-height:1;transition:color .3s}
+  .day:hover .day-num{color:#2c2c36}
+  .chev{transition:transform .35s;color:var(--mut)}
+  .day.open .chev{transform:rotate(180deg)}
+  .ex-list{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+  .ex-inner{padding:4px 24px 22px}
+  .ex{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 0;border-top:1px solid var(--line);
+  }
+  .ex:first-child{border-top:none}
+  .ex-name{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:10px}
+  .ex-name .idx{font-family:'JetBrains Mono';font-size:11px;color:var(--mut);min-width:20px}
+  .ex-sets{font-family:'JetBrains Mono';font-size:13px;font-weight:700;white-space:nowrap;color:var(--txt);background:var(--bg2);padding:5px 11px;border-radius:7px;border:1px solid var(--line)}
+  .rest-body{padding:8px 24px 26px;color:var(--mut);font-size:14.5px;line-height:1.7}
+  .rest-body .big{font-family:'Anton';font-size:40px;color:#202028;text-transform:uppercase;margin-bottom:8px}
+
+  /* ===== NOTES ===== */
+  .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .note{
+    background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);
+    border-radius:16px;padding:30px 28px;position:relative;overflow:hidden;
+  }
+  .note .ico{font-family:'Anton';font-size:60px;color:var(--acc);opacity:.18;position:absolute;top:8px;right:18px;line-height:1}
+  .note h3{font-family:'Anton';font-size:22px;text-transform:uppercase;margin-bottom:12px;letter-spacing:.01em}
+  .note p{color:var(--mut);font-size:14.5px;line-height:1.7}
+  .note p strong{color:var(--acc)}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:50px clamp(20px,6vw,90px);text-align:center;position:relative;z-index:2}
+  footer .big{font-family:'Anton';font-size:clamp(30px,6vw,72px);text-transform:uppercase;line-height:.95;letter-spacing:-.01em;color:#1c1c22;-webkit-text-stroke:1px #2c2c34}
+  footer .meta{font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.15em;color:var(--mut);margin-top:24px;text-transform:uppercase}
+  footer a{color:var(--acc);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+  footer a:hover{border-color:var(--acc)}
+  .controls{display:flex;gap:12px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
+  .btn{
+    font-family:'JetBrains Mono';font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    background:transparent;color:var(--txt);border:1px solid var(--line);padding:12px 22px;
+    border-radius:40px;cursor:pointer;transition:all .25s;
+  }
+  .btn:hover{border-color:var(--acc);color:var(--acc)}
+
+  @media(max-width:560px){
+    h1{font-size:clamp(52px,17vw,90px)}
+    .stat{flex:1;min-width:calc(50% - 7px)}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg-text">PUSH PULL LEGS</div>
+  <div class="glow a"></div>
+  <div class="glow b"></div>
+  <div class="hero-inner">
+    <div class="tagline reveal"><span class="dot"></span> D1 Athlete Programming · SC State #15</div>
+    <h1 class="reveal">THE<br><span class="accent">J2YDEN</span><br><span class="stroke">SPLIT</span></h1>
+    <div class="hero-sub reveal">
+      A <strong>6-day Push / Pull / Legs</strong> built in the mold of a Division-1 football player — powerlifting strength up front, athletic hypertrophy on the back end. Run twice a week: the first rotation goes <strong>heavy and low-rep</strong>, the second chases <strong>volume and the pump</strong>.
+    </div>
+    <div class="stat-row reveal">
+      <div class="stat"><div class="num">6</div><div class="lbl">Training Days</div></div>
+      <div class="stat"><div class="num">2×</div><div class="lbl">PPL Rotations</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">Strength · 3 Volume</div></div>
+      <div class="stat"><div class="num">1</div><div class="lbl">Rest Day</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>↓</span>Scroll the program</div>
+</header>
+
+<!-- PROGRAM -->
+<section class="sec" id="program">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01 /</span>
+      <h2 class="sec-title">The Week</h2>
+    </div>
+    <p class="sec-desc reveal">Tap any day to open the full exercise list. Strength days drive progressive overload — leave 1–2 reps in the tank on top sets. Volume days run closer to failure for size.</p>
+
+    <div class="legend reveal">
+      <div class="legend-item"><span class="swatch" style="background:var(--strength)"></span> Strength · heavy / low rep</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--volume)"></span> Volume · pump / hypertrophy</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--mut)"></span> Recovery</div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <div class="controls" style="margin-top:40px">
+      <button class="btn" id="expandAll">Expand All</button>
+      <button class="btn" id="collapseAll">Collapse All</button>
+    </div>
+  </div>
+</section>
+
+<!-- NOTES -->
+<section class="sec" id="notes" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02 /</span>
+      <h2 class="sec-title">Coach's Notes</h2>
+    </div>
+    <p class="sec-desc reveal">How to actually run it like an athlete, not just a lifter.</p>
+    <div class="notes">
+      <div class="note reveal">
+        <div class="ico">01</div>
+        <h3>Overload the Strength Days</h3>
+        <p>Days 1–3 are where you <strong>add weight or reps</strong> week to week on the big lifts — bench, deadlift, squat, OHP. Keep top sets crisp and stop shy of failure to keep the bar speed fast.</p>
+      </div>
+      <div class="note reveal">
+        <div class="ico">02</div>
+        <h3>Chase the Pump</h3>
+        <p>Days 4–6 flip the intent. Lighter loads, <strong>higher reps, shorter rest</strong>, and sets taken near failure. This is where the size and detail get built on top of the strength base.</p>
+      </div>
+      <div class="note reveal">
+        <div class="ico">03</div>
+        <h3>Train the Athlete</h3>
+        <p>As a football player you'd fold in <strong>sprint and conditioning work</strong> on off-days or after lifts. Add 1–2 short conditioning blocks weekly if you play a sport — keep it explosive, not just steady-state.</p>
+      </div>
+      <div class="note reveal">
+        <div class="ico">04</div>
+        <h3>Recover Like It Matters</h3>
+        <p>Six hard days demands <strong>food and sleep</strong>. Protein high, calories matched to your goal, 8+ hours down. The rest day is non-negotiable — that's when the work pays off.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">NO DAYS OFF<br>EXCEPT ONE</div>
+  <div class="meta">
+    Programmed in the style of <a href="https://www.youtube.com/@J2YDEN_" target="_blank" rel="noopener">Jayden Fuller · @J2YDEN_</a><br>
+    Built for serious training · not medical advice · listen to your body
+  </div>
+</footer>
+
+<script>
+const DAYS = [
+  { n:"01", tag:"Push · Strength", name:"Push", type:"strength", ex:[
+    ["Barbell Bench Press","4 × 4–6"],
+    ["Incline Dumbbell Press","4 × 8–10"],
+    ["Standing Overhead Press","3 × 6–8"],
+    ["Weighted Dips","3 × 8–10"],
+    ["Lateral Raises","3 × 15"],
+    ["Overhead Triceps Ext.","3 × 10–12"],
+  ]},
+  { n:"02", tag:"Pull · Strength", name:"Pull", type:"strength", ex:[
+    ["Deadlift","4 × 3–5"],
+    ["Weighted Pull-Ups","4 × 6–8"],
+    ["Barbell / T-Bar Row","4 × 8–10"],
+    ["Face Pulls","3 × 15"],
+    ["Barbell Curl","3 × 8–10"],
+    ["Hammer Curl","3 × 10–12"],
+  ]},
+  { n:"03", tag:"Legs · Strength", name:"Legs", type:"strength", ex:[
+    ["Back Squat","4 × 4–6"],
+    ["Romanian Deadlift","3 × 8–10"],
+    ["Bulgarian Split Squat","3 × 8 / leg"],
+    ["Leg Press","3 × 12"],
+    ["Standing Calf Raise","4 × 12–15"],
+  ]},
+  { n:"04", tag:"Push · Volume", name:"Push", type:"volume", ex:[
+    ["Incline Barbell Press","4 × 8–10"],
+    ["Flat Dumbbell Press","3 × 10–12"],
+    ["Machine Shoulder Press","3 × 10–12"],
+    ["Cable Flyes","3 × 12–15"],
+    ["Cable Lateral Raises","4 × 15–20"],
+    ["Triceps Pushdowns","4 × 12–15"],
+  ]},
+  { n:"05", tag:"Pull · Volume", name:"Pull", type:"volume", ex:[
+    ["Lat Pulldown","4 × 10–12"],
+    ["Chest-Supported Row","4 × 10–12"],
+    ["Single-Arm DB Row","3 × 10 / arm"],
+    ["Rear Delt Flyes","3 × 15–20"],
+    ["Incline Dumbbell Curl","3 × 10–12"],
+    ["Cable Curl","3 × 12–15"],
+  ]},
+  { n:"06", tag:"Legs · Volume", name:"Legs", type:"volume", ex:[
+    ["Front / Hack Squat","4 × 8–10"],
+    ["Hip Thrust","3 × 10–12"],
+    ["Walking Lunges","3 × 12 / leg"],
+    ["Leg Extension","3 × 15"],
+    ["Lying Leg Curl","3 × 12–15"],
+    ["Seated Calf Raise","4 × 15–20"],
+  ]},
+  { n:"07", tag:"Recovery", name:"Rest", type:"rest", rest:true },
+];
+
+const grid = document.getElementById('grid');
+
+DAYS.forEach((d,i)=>{
+  const card = document.createElement('div');
+  card.className = `day ${d.type} reveal`;
+  card.style.transitionDelay = (i*0.05)+'s';
+
+  let body;
+  if(d.rest){
+    body = `<div class="ex-list"><div class="rest-body">
+        <div class="big">Recover</div>
+        Full rest or light active recovery — a walk, mobility, or easy cardio.
+        Eat, sleep, and let the six days of work actually build something.
+      </div></div>`;
+  } else {
+    const rows = d.ex.map((e,idx)=>`
+      <div class="ex">
+        <div class="ex-name"><span class="idx">${String(idx+1).padStart(2,'0')}</span>${e[0]}</div>
+        <div class="ex-sets">${e[1]}</div>
+      </div>`).join('');
+    body = `<div class="ex-list"><div class="ex-inner">${rows}</div></div>`;
+  }
+
+  card.innerHTML = `
+    <div class="day-top">
+      <div class="day-meta">
+        <span class="day-tag">${d.tag}</span>
+        <span class="day-name">${d.name}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span class="day-num">${d.n}</span>
+        ${d.rest?'':'<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>'}
+      </div>
+    </div>
+    ${body}`;
+
+  const top = card.querySelector('.day-top');
+  const list = card.querySelector('.ex-list');
+  top.addEventListener('click',()=>{
+    const open = card.classList.toggle('open');
+    list.style.maxHeight = open ? list.scrollHeight+'px' : '0';
+  });
+
+  grid.appendChild(card);
+});
+
+// expand / collapse all
+function setAll(open){
+  document.querySelectorAll('.day').forEach(c=>{
+    const list = c.querySelector('.ex-list');
+    if(open){ c.classList.add('open'); list.style.maxHeight = list.scrollHeight+'px'; }
+    else { c.classList.remove('open'); list.style.maxHeight = '0'; }
+  });
+}
+document.getElementById('expandAll').addEventListener('click',()=>setAll(true));
+document.getElementById('collapseAll').addEventListener('click',()=>setAll(false));
+
+// scroll reveal
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
